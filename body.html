@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>Stack Overflow Português - Chrome APP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">      
+    <link rel="stylesheet" href="/css/icon.css">
+    <link rel="stylesheet" href="/css/materialize.min.css">
+    <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+    <script src="/js/materialize.min.js"></script>
+    <script src="/js/angular.min.js"></script>         
+    <!-- http://rss2json.com/api.json?rss_url=http%3A%2F%2Fpt.stackoverflow.com%2Ffeeds%2F -->  
+
+    <script src="/js/app.js"></script>
+
+    <style type="text/css">
+        html, body {overflow-y: visible;}
+    </style>
+
+</head>
+
+<body ng-controller="FeedController">
+    
+    <header>
+        <nav class="teal lighten-1 top-nav">
+            <div class="nav-wrapper">
+                <a class="brand-logo">
+                    Stackoverflow Português
+                </a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li>
+                        <a ng-click="reload()" href><i class="material-icons">loop</i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="row">
+        <div class="col s3">            
+            <ul class="collection">
+                <a class="collection-item"
+                    ng-bind="item.title"
+                    ng-repeat="item in feeds.items"
+                    ng-click="showPost(item)" 
+                    href 
+                    ng-class="{active: (item.title == feed.title)}"></a>
+            </ul>     
+        </div>
+        <div class="col s9 gray">
+            <div style="bottom: 45px; right: 24px;position: fixed;">
+                <a ng-repeat="tag in tags" class="chip teal white-text" ng-click="toggleTag(tag)" href>
+                    <span ng-bind="tag"></span>
+                    <i class="close material-icons">close</i>
+                </a>
+            </div>
+
+            <div class="progress" ng-show="loading">
+                  <div class="indeterminate"></div>
+              </div>
+            <div ng-hide="loading">
+                <header>
+                    <h3 ng-bind="feed.title"></h3>
+                </header>
+                <section>
+                    <div ng-bind-html="html(feed.content)"></div>
+                    <div>
+                        <a ng-repeat="category in feed.categories" 
+                            ng-bind="category"
+                            class="chip" 
+                            href
+                            ng-click="toggleTag(category)" 
+                            ng-class="{'teal white-text': tags.indexOf(category) != -1}"></a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
