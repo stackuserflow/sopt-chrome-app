@@ -7,4 +7,11 @@ chrome.app.runtime.onLaunched.addListener(function() {
       // 'top' : 0,
     }
   });
+
+  // chrome.notifications.create({
+  //     type: 'MESSAGE',
+  //     message: message,
+  //     title: title || "Notificação",
+  //     iconUrl: 'img/icon.png'
+  // })
 });

@@ -9,21 +9,18 @@
     <link rel="stylesheet" type="text/css" href="css/default.css">
     <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
     <script src="/js/materialize.min.js"></script>
-    <script src="/js/angular.min.js"></script>         
+    <script src="/js/angular.min.js"></script>           
     <!-- http://rss2json.com/api.json?rss_url=http%3A%2F%2Fpt.stackoverflow.com%2Ffeeds%2F -->  
 
     <script src="/js/app.js"></script>
 
-    <style type="text/css">
-        html, body {overflow-y: visible;}
-    </style>
 
 </head>
 
 <body ng-controller="FeedController">
     
     <header>
-        <nav class="teal lighten-1 top-nav">
+        <nav class="teal top-nav">
             <div class="nav-wrapper">
                 <a class="brand-logo">
                     Stackoverflow Português
@@ -37,18 +34,18 @@
         </nav>
     </header>
 
-    <section class="row">
-        <div class="col s3">            
+    <section class="row relative">
+        <div class="col s3 sidebar teal lighten-1">            
             <ul class="collection">
                 <a class="collection-item"
-                    ng-bind="item.title"
+                    ng-bind-html="html(item.title)"
                     ng-repeat="item in feeds.items"
                     ng-click="showPost(item)" 
                     href 
                     ng-class="{active: (item.title == feed.title)}"></a>
             </ul>     
         </div>
-        <div class="col s9 gray">
+        <div class="col offset-s3">
             <div style="bottom: 45px; right: 24px;position: fixed;">
                 <a ng-repeat="tag in tags" class="chip teal white-text" ng-click="toggleTag(tag)" href>
                     <span ng-bind="tag"></span>
@@ -57,13 +54,13 @@
             </div>
 
             <div class="progress" ng-show="loading">
-                  <div class="indeterminate"></div>
-              </div>
+              <div class="indeterminate"></div>
+            </div>
             <div ng-hide="loading">
                 <header>
-                    <h3 ng-bind="feed.title"></h3>
+                    <h3 ng-bind-html="html(feed.title)"></h3>
                 </header>
-                <section>
+                <section class='box'>
                     <div ng-bind-html="html(feed.content)"></div>
                     <div>
                         <a ng-repeat="category in feed.categories" 

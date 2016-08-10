@@ -1,14 +1,38 @@
 ::-webkit-scrollbar {
-    background: #dfdfdf;
-    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.6);
+    // border-radius: 4px;
     width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
     background-color: #26a69a;
-    border-radius: 4px;
+    // border-radius: 4px;
+    padding:5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-block {
+    
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-y: visible;
+}
+.relative {
+    position: relative;
+    min-height: 100%;
+}
+.sidebar {
+   top: 0;
+   left: 0;
+   position: absolute;
+   height: 100%;
+   overflow-y: auto;
+   width: 100%;
 }
