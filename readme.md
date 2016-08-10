@@ -1,0 +1,1 @@
+![Image of Yaktocat](http://i.stack.imgur.com/cpitj.gif)
