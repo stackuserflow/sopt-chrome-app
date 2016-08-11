@@ -1,1 +1,1 @@
-![Image of Yaktocat](http://i.stack.imgur.com/cpitj.gif)
+![Veja o visual novo!](http://i.imgur.com/86ZVohQ.gif)
