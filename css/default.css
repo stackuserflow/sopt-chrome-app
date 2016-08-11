@@ -36,3 +36,5 @@ html, body {
    overflow-y: auto;
    width: 100%;
 }
+
+main { height: 100%; }
