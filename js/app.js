@@ -1,5 +1,4 @@
 angular.module('app', [])
-
 .controller('FeedController', function ($interval, $scope, $http, $sce, $httpParamSerializer, chromeNotify) {
 
     //var url = 'http://rss2json.com/api.json';
@@ -31,6 +30,8 @@ angular.module('app', [])
 
             $scope.feed || $scope.showPost(response.data.items[0]);
 
+            console.log($scope.feed);
+
             $scope.getFiltererByTags();
 
             $scope.loading = false;
@@ -41,18 +42,31 @@ angular.module('app', [])
 
     $scope.getFiltererByTags = function () {    
 
-        if ($scope.tags.length) {
+        chrome.storage.sync.get('notifieds', function (object) {
 
-            return $scope.feeds.items.filter(function (item) {
+            var notifieds = object.notifieds || [];
 
-                return $scope.tags.some(function (tag) {
+            console.log(notifieds);
+
+            angular.forEach($scope.feeds.items, function (item) {
+
+                var contains = $scope.tags.some(function (tag) {
                     return item.categories.indexOf(tag) !== -1;
                 });
-            });
-        }
 
-        return $scope.feeds.items;
-    }
+                if (contains && notifieds.indexOf(item.guid) == -1) {
+                    chromeNotify(item.content, item.title);
+                    notifieds.push(item.guid);
+                }
+
+            });
+
+            chrome.storage.sync.set({
+                'notifieds' : notifieds,
+            });
+        });
+
+    };
 
     $scope.toggleTag = function (category) {
 
@@ -62,6 +76,13 @@ angular.module('app', [])
 
         chrome.storage.sync.set({
             'tags' : $scope.tags,
+        });
+    };
+
+    $scope.containsAnyTag = function (item) {
+
+        return item.categories.some(function (tag) {
+            return $scope.tags.indexOf(tag) != -1;
         });
     };
 
@@ -82,4 +103,9 @@ angular.module('app', [])
               iconUrl: 'img/icon.png'
           })
     };
+});
+
+$(function(){
+
+    $('.modal-trigger').leanModal();
 });
