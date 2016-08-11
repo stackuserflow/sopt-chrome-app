@@ -11,68 +11,87 @@
     <script src="/js/materialize.min.js"></script>
     <script src="/js/angular.min.js"></script>           
     <!-- http://rss2json.com/api.json?rss_url=http%3A%2F%2Fpt.stackoverflow.com%2Ffeeds%2F -->  
-
     <script src="/js/app.js"></script>
-
-
 </head>
 
 <body ng-controller="FeedController">
-    
-    <header>
-        <nav class="teal top-nav">
-            <div class="nav-wrapper">
-                <a class="brand-logo">
-                    Stackoverflow Português
-                </a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li>
-                        <a ng-click="reload()" href><i class="material-icons">loop</i></a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-
-    <section class="row relative">
-        <div class="col s3 sidebar teal lighten-1">            
-            <ul class="collection">
-                <a class="collection-item"
-                    ng-bind-html="html(item.title)"
-                    ng-repeat="item in feeds.items"
-                    ng-click="showPost(item)" 
-                    href 
-                    ng-class="{active: (item.title == feed.title)}"></a>
-            </ul>     
-        </div>
-        <div class="col offset-s3">
-            <div style="bottom: 45px; right: 24px;position: fixed;">
-                <a ng-repeat="tag in tags" class="chip teal white-text" ng-click="toggleTag(tag)" href>
-                    <span ng-bind="tag"></span>
-                    <i class="close material-icons">close</i>
-                </a>
-            </div>
-
-            <div class="progress" ng-show="loading">
-              <div class="indeterminate"></div>
-            </div>
-            <div ng-hide="loading">
-                <header>
-                    <h3 ng-bind-html="html(feed.title)"></h3>
-                </header>
-                <section class='box'>
-                    <div ng-bind-html="html(feed.content)"></div>
-                    <div>
-                        <a ng-repeat="category in feed.categories" 
-                            ng-bind="category"
-                            class="chip" 
-                            href
-                            ng-click="toggleTag(category)" 
-                            ng-class="{'teal white-text': tags.indexOf(category) != -1}"></a>
+    <main class="row relative">
+        <header>
+            <nav class="teal">
+                <div class="nav-wrapper">
+                    <div class="col s12">
+                        <a class="brand-logo">
+                            <i class="material-icons">language</i>
+                            <h1>Stackoverflow Português</h1>
+                        </a>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <li>
+                                <a ng-click="reload()" href><i class="material-icons">loop</i></a>
+                            </li>
+                            <li>
+                                <a class="modal-trigger" href="#tags-modal"><i class="material-icons">label</i></a>
+                            </li>
+                        </ul>
                     </div>
-                </section>
+                </div>
+            </nav>
+        </header>
+
+        <section class="relative">
+            <div class="col s3 sidebar teal lighten-1">            
+                <ul class="collection">
+                    <li class="collection-item"
+                        ng-repeat="item in feeds.items"
+                        ng-click="showPost(item)" 
+                        style="cursor: pointer" 
+                        ng-class="{active: item.title == feed.title}">
+                            <span ng-bind-html="html(item.title)"></span>
+                            <div class="secondary-content">
+                                <i class="material-icons tiny yellow-text" ng-if="containsAnyTag(item)">grade</i>
+                            </div>
+
+                        </li>
+
+                </ul>     
+            </div>
+            <div class="col offset-s3">
+
+                <div class="progress" ng-show="loading">
+                  <div class="indeterminate"></div>
+                </div>
+                <div ng-hide="loading">
+                    <header>
+                        <h3 ng-bind-html="html(feed.title)"></h3>
+                    </header>
+                    <section class='box'>
+                        <div ng-bind-html="html(feed.content)"></div>
+                        <div>
+                            <a ng-repeat="category in feed.categories" 
+                                ng-bind="category"
+                                class="chip" 
+                                href
+                                ng-click="toggleTag(category)" 
+                                ng-class="{'teal white-text': tags.indexOf(category) != -1}"></a>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Modal Trigger -->
+                 
+            </div>        
+        </section>
+
+        <div id="tags-modal" class="modal bottom-sheet">
+            <div class="modal-content">
+                <h4>Tags Selecionadas</h4>
+                <div>
+                    <a ng-repeat="tag in tags.sort()" class="chip teal white-text" ng-click="toggleTag(tag)" href>
+                        <span ng-bind="tag"></span>
+                        <i class="close material-icons">close</i>
+                    </a>
+                </div>
             </div>
         </div>
-    </section>
+    </main>
 </body>
 </html>
