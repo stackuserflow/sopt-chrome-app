@@ -1,15 +1,12 @@
 angular.module('app', [])
-.controller('FeedController', function ($interval, $scope, $http, $sce, $httpParamSerializer, chromeNotify) {
+.controller('FeedController', function ($interval, $scope, $http, $sce, $httpParamSerializer, postNotify) {
 
     //var url = 'http://rss2json.com/api.json';
-
     
     $scope.html = $sce.trustAsHtml;
 
-    $scope.tags = [];
-
     chrome.storage.sync.get('tags', function (object) {
-        $scope.tags = object.tags;
+        $scope.tags = object.tags || [];
     });
 
     $scope.showPost = function (item) {
@@ -30,8 +27,6 @@ angular.module('app', [])
 
             $scope.feed || $scope.showPost(response.data.items[0]);
 
-            console.log($scope.feed);
-
             $scope.getFiltererByTags();
 
             $scope.loading = false;
@@ -46,16 +41,17 @@ angular.module('app', [])
 
             var notifieds = object.notifieds || [];
 
-            console.log(notifieds);
-
             angular.forEach($scope.feeds.items, function (item) {
 
                 var contains = $scope.tags.some(function (tag) {
+
                     return item.categories.indexOf(tag) !== -1;
                 });
 
                 if (contains && notifieds.indexOf(item.guid) == -1) {
-                    chromeNotify(item.content, item.title);
+
+                    postNotify(item);
+
                     notifieds.push(item.guid);
                 }
 
@@ -92,16 +88,26 @@ angular.module('app', [])
 
 })
 
+.factory('postNotify', function (chromeNotify) {
+
+    return function (item) {
+
+        var text = angular.element('<div></div>').html(item.content).text();
+
+        return chromeNotify(text, item.title, item.guid);
+    };  
+})
+
 .factory('chromeNotify', function () {
 
-    return function (message, title) {
+    return function (message, title, id) {
 
-        chrome.notifications.create({
-              type: 'basic',
-              message: message,
-              title: title || "Notificação",
-              iconUrl: 'img/icon.png'
-          })
+        chrome.notifications.create(id, {
+          type: 'basic',
+          message: message,
+          title: title || "Notificação",
+          iconUrl: 'img/icon.png'
+      })
     };
 });
 
