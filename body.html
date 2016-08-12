@@ -20,9 +20,9 @@
             <nav class="teal">
                 <div class="nav-wrapper">
                     <div class="col s12">
+                        <!-- <i class="material-icons">language</i> -->
                         <a class="brand-logo">
-                            <i class="material-icons">language</i>
-                            <h1>Stackoverflow Português</h1>
+                            <span>Stackoverflow Português</span>
                         </a>
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
                             <li>
@@ -61,7 +61,9 @@
                 </div>
                 <div ng-hide="loading">
                     <header>
-                        <h3 ng-bind-html="html(feed.title)"></h3>
+                        <h3>
+                            <a class="black-text" ng-href="{{ feed.link }}" target="_blank" ng-bind-html="html(feed.title)"></a>
+                        </h3>
                     </header>
                     <section class='box'>
                         <div ng-bind-html="html(feed.content)"></div>
