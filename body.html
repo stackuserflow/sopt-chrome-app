@@ -15,7 +15,7 @@
 </head>
 
 <body ng-controller="FeedController">
-    <main class="row relative">
+    <main class="row total-height">
         <header>
             <nav class="teal">
                 <div class="nav-wrapper">
@@ -37,25 +37,23 @@
             </nav>
         </header>
 
-        <section class="relative">
+        <section class="total-height">
             <div class="col s3 sidebar teal lighten-1">            
                 <ul class="collection">
                     <li class="collection-item"
                         ng-repeat="item in feeds.items"
                         ng-click="showPost(item)" 
                         style="cursor: pointer" 
-                        ng-class="{active: item.title == feed.title}">
-                            <span ng-bind-html="html(item.title)"></span>
-                            <div class="secondary-content">
-                                <i class="material-icons tiny yellow-text" ng-if="containsAnyTag(item)">grade</i>
-                            </div>
-
-                        </li>
-
+                        ng-class="{active: item.title == feed.title}"
+                    >
+                        <span ng-bind-html="html(item.title)"></span>
+                        <div class="secondary-content">
+                            <i class="material-icons tiny yellow-text" ng-if="containsAnyTag(item)">grade</i>
+                        </div>
+                    </li>
                 </ul>     
             </div>
-            <div class="col offset-s3">
-
+            <div class="col s9 push-s3">
                 <div class="progress" ng-show="loading">
                   <div class="indeterminate"></div>
                 </div>

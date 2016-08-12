@@ -1,7 +1,8 @@
 ::-webkit-scrollbar {
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0);
     // border-radius: 4px;
-    width: 8px;
+    width: 10px;
+
 }
 
 ::-webkit-scrollbar-thumb {
@@ -11,7 +12,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 1);
 }
 
 .sidebar-block {
@@ -37,4 +38,4 @@ html, body {
    width: 100%;
 }
 
-main { height: 100%; }
+.total-height{height: 100%; }
