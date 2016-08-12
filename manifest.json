@@ -1,14 +1,8 @@
 {
   "manifest_version": 2,
-
   "name": "Stack Overflow App - Chrome",
   "description": "Aplicativo do Google Chrome para ver os feeds mais recentes do Stackoverflow em português",
   "version": "1.0",
-
-  // "browser_action": {
-  //   "default_icon": "icon.jpg",
-  //   "default_popup": "body.html"
-  // },
   "permissions": [
     "<all_urls>",
     "notifications",
