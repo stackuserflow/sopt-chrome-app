@@ -27,7 +27,7 @@ angular.module('app', [])
 
             $scope.feed || $scope.showPost(response.data.items[0]);
 
-            $scope.getFiltererByTags();
+            $scope.notifyByTags();
 
             $scope.loading = false;
         });
@@ -35,7 +35,7 @@ angular.module('app', [])
 
     };
 
-    $scope.getFiltererByTags = function () {    
+    $scope.notifyByTags = function () {    
 
         chrome.storage.sync.get('notifieds', function (object) {
 

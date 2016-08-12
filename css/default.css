@@ -38,4 +38,4 @@ html, body {
    width: 100%;
 }
 
-.total-height{height: 100%; }
+.total-height{height: 100%; position: relative;}

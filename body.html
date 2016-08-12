@@ -41,57 +41,55 @@
             <div class="col s3 sidebar teal lighten-1">            
                 <ul class="collection">
                     <li class="collection-item"
-                        ng-repeat="item in feeds.items"
-                        ng-click="showPost(item)" 
-                        style="cursor: pointer" 
-                        ng-class="{active: item.title == feed.title}"
+                    ng-repeat="item in feeds.items"
+                    ng-click="showPost(item)" 
+                    style="cursor: pointer" 
+                    ng-class="{active: item.title == feed.title}"
                     >
-                        <span ng-bind-html="html(item.title)"></span>
-                        <div class="secondary-content">
-                            <i class="material-icons tiny yellow-text" ng-if="containsAnyTag(item)">grade</i>
-                        </div>
-                    </li>
-                </ul>     
+                    <span ng-bind-html="html(item.title)"></span>
+                    <div class="secondary-content">
+                        <i class="material-icons tiny yellow-text" ng-if="containsAnyTag(item)">grade</i>
+                    </div>
+                </li>
+            </ul>     
+        </div>
+        <div class="col s9 push-s3">
+            <div class="progress" ng-show="loading">
+                <div class="indeterminate"></div>
             </div>
-            <div class="col s9 push-s3">
-                <div class="progress" ng-show="loading">
-                  <div class="indeterminate"></div>
+            <div ng-hide="loading">
+                <header>
+                    <h3>
+                        <a class="black-text" ng-href="{{ feed.link }}" target="_blank" ng-bind-html="html(feed.title)"></a>
+                    </h3>
+                </header>
+                <section class='box'>
+                    <div ng-bind-html="html(feed.content)"></div>
+                    <div>
+                        <a ng-repeat="category in feed.categories" 
+                        ng-bind="category"
+                        class="chip" 
+                        href
+                        ng-click="toggleTag(category)" 
+                        ng-class="{'teal white-text': tags.indexOf(category) != -1}"></a>
+                    </div>
+                </section>
                 </div>
-                <div ng-hide="loading">
-                    <header>
-                        <h3>
-                            <a class="black-text" ng-href="{{ feed.link }}" target="_blank" ng-bind-html="html(feed.title)"></a>
-                        </h3>
-                    </header>
-                    <section class='box'>
-                        <div ng-bind-html="html(feed.content)"></div>
-                        <div>
-                            <a ng-repeat="category in feed.categories" 
-                                ng-bind="category"
-                                class="chip" 
-                                href
-                                ng-click="toggleTag(category)" 
-                                ng-class="{'teal white-text': tags.indexOf(category) != -1}"></a>
-                        </div>
-                    </section>
-                </div>
+            <!-- Modal Trigger -->
+        </div>        
+    </section>
 
-                <!-- Modal Trigger -->
-                 
-            </div>        
-        </section>
-
-        <div id="tags-modal" class="modal bottom-sheet">
-            <div class="modal-content">
-                <h4>Tags Selecionadas</h4>
-                <div>
-                    <a ng-repeat="tag in tags.sort()" class="chip teal white-text" ng-click="toggleTag(tag)" href>
-                        <span ng-bind="tag"></span>
-                        <i class="close material-icons">close</i>
-                    </a>
-                </div>
+    <div id="tags-modal" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>Tags Selecionadas</h4>
+            <div>
+                <a ng-repeat="tag in tags.sort()" class="chip teal white-text" ng-click="toggleTag(tag)" href>
+                    <span ng-bind="tag"></span>
+                    <i class="close material-icons">close</i>
+                </a>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 </body>
 </html>
